@@ -14,10 +14,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: mirror.gcr.io/library/nginx:latest
-        command: ["/bin/sh", "-c"]
-      
-        args: ["sed -i 's/listen  80;/listen  8080;/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+        # 이 이미지는 OpenShift에서 "무조건" 돌아가도록 설계된 이미지입니다.
+        image: bitnami/nginx:latest
         ports:
         - containerPort: 8080
 ---
@@ -30,4 +28,4 @@ spec:
     app: proxy-nginx
   ports:
   - port: 80
-    targetPort: 8080 # 컨테이너 내부의 8080으로 연결
+    targetPort: 8080
